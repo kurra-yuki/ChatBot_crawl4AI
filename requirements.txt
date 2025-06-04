@@ -1,0 +1,10 @@
+crawl4ai
+langchain
+langchain-community
+langchain-openai
+chromadb
+openai
+tiktoken
+streamlit
+python-dotenv
+unstructured
