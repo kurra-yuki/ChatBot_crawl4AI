@@ -1,10 +1,7 @@
-# crawl_lanet_session_save.py
-import asyncio
+import asyncio, os, re
 from typing import List
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
 from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
-import os
-import re
 
 # クロール対象URL（必要に応じて追加）
 TARGET_URLS = [
@@ -21,33 +18,40 @@ TARGET_URLS = [
 OUTPUT_DIR = "lanet_data"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+# ファイル名のサニタイズ関数
 def sanitize_filename(url: str) -> str:
     return re.sub(r'[^\w\-_.]', '_', url.strip("/"))[:100]
 
+# クローリングとMarkdown形式で保存する関数
 async def crawl_sequential_and_save(urls: List[str]):
-    print("\n=== Crawl4AI + セッション再利用 + Markdown保存 ===")
+    print("\n=== MarkDown形式で保存中 ===")
 
+    # ブラウザ設定
     browser_config = BrowserConfig(
         headless=True,
         extra_args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"],
     )
 
+    # クローリング設定
     crawl_config = CrawlerRunConfig(
         markdown_generator=DefaultMarkdownGenerator()
     )
 
+    # 非同期クローラーの初期化
     crawler = AsyncWebCrawler(config=browser_config)
     await crawler.start()
 
     try:
         session_id = "lanet_session"
         for url in urls:
+            # クローリング
             result = await crawler.arun(
                 url=url,
                 config=crawl_config,
                 session_id=session_id
             )
 
+            # 結果の書き込み
             if result.success:
                 print(f"✅ Success: {url}")
                 filename = sanitize_filename(url)

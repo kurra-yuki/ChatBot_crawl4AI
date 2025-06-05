@@ -8,3 +8,4 @@ tiktoken
 streamlit
 python-dotenv
 unstructured
+langchain-chroma
