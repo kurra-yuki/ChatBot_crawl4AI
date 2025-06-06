@@ -263,8 +263,10 @@ LangChainは、LLMを使ったアプリを効率的に構築するためのラ�
 | 使い方   | `embedding = OpenAIEmbeddings(openai_api_key=...)` |
 | 背景モデル | `text-embedding-3-small` などが裏で使用される（2024年現在）       |
 
+<div style="page-break-after: always;"></div>
+
 ### 🧠 Chromaとは？（ベクトルデータベース）<br>
-#### Chroma は、**文章の「意味」に基づいて検索できるベクトルデータベース（Vector Database）**です。
+#### Chroma は、文章の「意味」に基づいて検索できるベクトルデータベース（Vector Database）です。
 従来のキーワード検索とは異なり、意味的に類似した情報を探すのに適しています。
 
 #### 💡 なぜ Chroma を使うのか？
